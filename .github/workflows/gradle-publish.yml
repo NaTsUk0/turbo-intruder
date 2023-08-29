@@ -10,21 +10,17 @@ name: Gradle Package
 on: workflow_dispatch
 
 jobs:
-  build:
+  gradle-rc:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
+    - uses: actions/setup-java@v3
       with:
-        java-version: '17'
-        distribution: 'temurin'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@2
+        distribution: temurin
+        java-version: 17
+    - uses: gradle/gradle-build-action@v2
+      id: setup-gradle
       with:
-        arguments: build
-        gradle-version: 7.2
-    - uses: actions/upload-artifact@v3
-      with:
-        name: Package
-        path: build/libs
+        gradle-version: release-candidate
+    - run: gradle build --dry-run # just test build configuration
+    - run: echo "The release-candidate version was ${{ steps.setup-gradle.outputs.gradle-version }}"
