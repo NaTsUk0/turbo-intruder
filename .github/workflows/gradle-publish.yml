@@ -30,7 +30,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          path: ./*.jar
+          path: build/libs/*.jar
           name: Downloadable Extension File
       - name: Delete older releases
         uses: dev-drprasad/delete-older-releases@v0.2.0
@@ -44,4 +44,4 @@ jobs:
           tag: "latest_build_by_github"
           body: "This jar file has been built by GitHub automatically.\nYou can view the latest version number in the [extension.properties](../../blob/main/src/main/resources/extension.properties) file."
           allowUpdates: true
-          artifacts: "releases/*.jar"
+          artifacts: "build/libs/*.jar"
