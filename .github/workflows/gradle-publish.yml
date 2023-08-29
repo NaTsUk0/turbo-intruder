@@ -23,7 +23,15 @@ jobs:
       with:
         gradle-version: 7.2
     - run: gradle build fatjar
-    - uses: actions/upload-artifact@v3
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
       with:
-        name: Package
-        path: build/libs
+        path: ./releases/*.jar
+        name: Downloadable Extension File
+    - name: Release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: "latest_build_by_github"
+        body: "This jar file has been built by GitHub automatically.\nYou can view the latest version number in the [extension.properties](../../blob/main/src/main/resources/extension.properties) file."
+        allowUpdates: true
+        artifacts: "releases/*.jar"
