@@ -30,7 +30,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          path: ./releases/*.jar
+          path: ./*.jar
           name: Downloadable Extension File
       - name: Delete older releases
         uses: dev-drprasad/delete-older-releases@v0.2.0
