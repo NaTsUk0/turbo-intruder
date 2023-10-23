@@ -24,6 +24,7 @@ open class Request(val template: String, val words: List<String?>, val learnBori
     var pauseTime: Int = 1000
     var pauseMarkers: List<String> = emptyList()
     var delayCompletion: Long = 0L
+    var endpointOverride: String? = null
 
     private val attributes: HashMap<String, Any> = HashMap()
 
@@ -111,6 +112,9 @@ open class Request(val template: String, val words: List<String?>, val learnBori
     }
 
     fun getResponseAsBytes(): ByteArray? {
+        if (response == null) {
+            return "null".toByteArray()
+        }
         return stringToBytes(response)
     }
 
